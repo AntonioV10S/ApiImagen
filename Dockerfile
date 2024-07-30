@@ -1,7 +1,7 @@
 # Usa una imagen base de PHP con FPM
-FROM php:8.0-fpm
+FROM php:8.2-fpm
 
-# Instala dependencias del sistema
+# Actualiza el índice de paquetes e instala dependencias del sistema
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
@@ -14,7 +14,9 @@ RUN apt-get update && apt-get install -y \
     curl \
     libmysqlclient-dev \
     nodejs \
-    npm
+    npm \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Instala extensiones de PHP
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
